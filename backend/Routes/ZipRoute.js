@@ -4,5 +4,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const zipRouter = express.Router();
 const ZipController = require('../Controllers/ZipController');
-zipRouter.post('/ExtractZip', upload.single('file'), ZipController.ExtractZip);
+const authnticateUser = require('../MiddleWares/auth');
+zipRouter.post('/ExtractZip', authnticateUser, upload.single('file'), ZipController.ExtractZip);
 module.exports = zipRouter;

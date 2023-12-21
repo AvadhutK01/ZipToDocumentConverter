@@ -1,4 +1,6 @@
 const { promisify } = require('util');
+require('dotenv').config();
+const { ObjectId } = require("mongodb");
 const fs = require('fs');
 const AdmZip = require('adm-zip');
 const path = require('path');
@@ -8,11 +10,13 @@ const PdfData = require('../Models/PdfModel');
 const AWS = require('aws-sdk');
 
 module.exports.ExtractZip = async (req, res) => {
-    const id = req.body.id;
+    const id = req.user.id;
+    const userId = new ObjectId(id);
     const fileBuffer = req.file.buffer;
     const fileName = req.file.originalname.split('.')[0];
 
     try {
+        // Extracting and storing unzipped files to the users machine with AdmZip
         const zip = new AdmZip(fileBuffer);
         const zipEntries = zip.getEntries();
         const userHomeDir = os.homedir();
@@ -27,6 +31,7 @@ module.exports.ExtractZip = async (req, res) => {
                 await promisify(fs.writeFile)(outputFilePath, content);
             }
         }
+        //Creating Pdf layout for storing locations of unzipped files
         const tableBody = zipEntries
             .filter((zipEntry) => !zipEntry.isDirectory)
             .map((zipEntry, index) => {
@@ -38,7 +43,7 @@ module.exports.ExtractZip = async (req, res) => {
 
         const table = {
             headerRows: 1,
-            widths: [30, 150, '*'],
+            widths: [30, 150, 370],
             body: [
                 [{ text: 'Sr no', style: 'tableHeader', alignment: 'center' }, 'File name', 'File Path'],
                 ...tableBody
@@ -63,7 +68,7 @@ module.exports.ExtractZip = async (req, res) => {
                 header: {
                     fontSize: 18,
                     bold: true,
-                    margin: [0, 0, 0, 10]
+                    margin: [0, 0, 0, 0]
                 },
                 tableHeader: {
                     bold: true,
@@ -71,20 +76,22 @@ module.exports.ExtractZip = async (req, res) => {
                     color: 'black'
                 },
                 table: {
-                    margin: [0, 5, 0, 15]
+                    margin: [-30, 0, 0, 0]
                 }
             }
         };
 
+        // Generate PDF and save it to the output folder
         const pdfDoc = printer.createPdfKitDocument(docDefinition);
         const pdfChunks = [];
         pdfDoc.on('data', chunk => pdfChunks.push(chunk));
         pdfDoc.on('end', async () => {
             const pdfBuffer = Buffer.concat(pdfChunks);
             try {
+                //uploding pdf to the s3 bucket
                 const s3 = new AWS.S3({
-                    accessKeyId: process.env.AWS_ACCESS_KEY,
-                    secretAccessKey: process.env.AWS_SECRET_KEY
+                    accessKeyId: process.env.IAM_USER_KEY,
+                    secretAccessKey: process.env.IAM_USER_SECRET
                 });
                 const params = {
                     Bucket: 'zippdfbucket',
@@ -94,14 +101,13 @@ module.exports.ExtractZip = async (req, res) => {
                     ContentType: 'application/pdf'
                 };
                 const s3Response = await s3.upload(params).promise();
-
                 await PdfData.create({
                     PdfName: `${fileName}_files_list.pdf`,
                     PdfLink: s3Response.Location,
-                    userId: id
+                    userId: userId
                 });
-
-                res.status(200).json({ message: 'Files extracted, saved, and uploaded successfully', fileUrl: s3Response.Location });
+                //Sending filerUrl to frontend
+                res.status(200).json({ message: 'Files extracted, saved, and uploaded successfully', fileUrl: s3Response.Location, name: s3Response.Key });
             } catch (error) {
                 console.error('Error uploading PDF to S3:', error);
                 res.status(500).json({ error: 'Error uploading PDF to S3' });

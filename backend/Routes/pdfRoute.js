@@ -1,8 +1,6 @@
 const express = require('express');
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 const pdfRouter = express.Router();
 const pdfController = require('../Controllers/pdfController');
-pdfRouter.post('/ViewPdfLinks', upload.single('file'), pdfController.ViewPdfLinks);
+const authenticateUser = require('../MiddleWares/auth');
+pdfRouter.get('/ViewPdfLinks', authenticateUser, pdfController.viewPdfLinks);
 module.exports = pdfRouter;

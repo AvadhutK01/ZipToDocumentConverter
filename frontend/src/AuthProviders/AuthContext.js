@@ -7,10 +7,14 @@ export const AuthProvider = ({ children }) => {
 
     const login = (username) => {
         setUsername(username);
+        localStorage.setItem('user', username);
     };
 
     const logout = () => {
         setUsername('');
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        window.location.href = '/'
     };
 
     return (

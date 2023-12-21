@@ -32,7 +32,28 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+.fixed-footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  /* Center aligns the text */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

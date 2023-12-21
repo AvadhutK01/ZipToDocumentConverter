@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../AuthProviders/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const LoginPage = () => {
     const { login } = useAuth();
     const [uname, setUname] = useState('');
     const [pass, setPass] = useState('');
-    const history = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const loginData = {
@@ -17,16 +19,20 @@ const LoginPage = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/user/Login', loginData);
-            if (response.data === "loginsuccess") {
+
+            if (response.data.message === "success") {
                 login(uname);
-                history("/mainhome")
+                localStorage.setItem('token', response.data.token);
+                window.location.href = '/mainHome';
             } else if (response.data === "loginfailed") {
-                alert("Login failed");
+                toast.error("Login failed! Please check your credentials.");
             }
+
         } catch (error) {
-            alert(error);
+            toast.error("Failed to log in! Please try again later.");
         }
     };
+
 
     return (
         <div className="row d-flex justify-content-center align-items-center h-100 ">
@@ -47,7 +53,7 @@ const LoginPage = () => {
                     </div>
 
                     <div className="d-flex justify-content-between align-items-center">
-                        <a href="#!" className="text-body">Forgot password?</a>
+                        <Link to={'/passwordreset'} className="text-body">Forgot password?</Link>
                     </div>
 
                     <div className="text-center text-lg-start mt-4 pt-2">

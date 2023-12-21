@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const hintQuestions = [
     "What is your mother's maiden name?",
     "What was the name of your first pet?",
@@ -37,8 +40,14 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!username || !password || !repeatPassword || !selectedHintQuestion || !hintAnswer) {
+            toast.error("All fields are required");
+            return;
+        }
+
         if (password !== repeatPassword) {
-            alert("Password do not match");
+            toast.error("Passwords do not match");
+            return;
         }
 
         try {
@@ -48,21 +57,20 @@ const Register = () => {
                 hintQuestion: selectedHintQuestion,
                 hintAnswer,
             });
-            if (response.data == "exist") {
-                alert("User already exist");
-            }
-            else if (response.data == "success") {
-                history("/login")
-            }
-            else {
-                alert("Error in registration");
+
+            if (response.data === "exist") {
+                toast.error("User already exists");
+            } else if (response.data === "success") {
+                toast.success("Registration successful! Redirecting to login page.");
+                history("/login");
+            } else {
+                toast.error("Error in registration");
             }
 
         } catch (error) {
-            alert("Something went wrong");
+            toast.error("Something went wrong");
         }
     };
-
 
     return (
         <div className="card-body p-md-5">

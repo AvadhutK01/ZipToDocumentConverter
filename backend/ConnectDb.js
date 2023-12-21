@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbURI = 'mongodb+srv://ak21:pass123@cluster0.dnejp8e.mongodb.net/your-database-name';
+const dbURI = process.env.DB_URl;
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
