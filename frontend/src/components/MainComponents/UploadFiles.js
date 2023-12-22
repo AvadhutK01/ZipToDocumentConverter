@@ -40,7 +40,6 @@ const UploadFiles = () => {
             const downloadLink = document.createElement('a');
             downloadLink.href = response.data.fileUrl;
             downloadLink.download = file.name;
-            downloadLink.target = '_blank';
 
             downloadLink.style.display = 'none';
             document.body.appendChild(downloadLink);

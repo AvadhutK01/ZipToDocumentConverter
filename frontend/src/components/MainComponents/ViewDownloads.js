@@ -41,7 +41,7 @@ const ViewDownloads = () => {
                                 <th scope="row">{index + 1}</th>
                                 <td>{item.PdfName}</td>
                                 <td>
-                                    <a href={item.PdfLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
+                                    <a href={item.PdfLink} rel="noopener noreferrer" className="btn btn-primary btn-sm">
                                         Download
                                     </a>
                                 </td>
