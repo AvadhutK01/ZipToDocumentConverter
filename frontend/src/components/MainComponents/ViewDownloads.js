@@ -8,7 +8,7 @@ const ViewDownloads = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACKEND_HOST_NAME}/pdf/ViewPdfLinks1`, {
+        axios.get(`${process.env.REACT_APP_BACKEND_HOST_NAME}/pdf/ViewPdfLinks`, {
             headers: {
                 "Authorization": token
             }
