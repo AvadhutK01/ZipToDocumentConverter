@@ -26,7 +26,7 @@ const UploadFiles = () => {
             formData.append('file', file);
             const token = localStorage.getItem('token');
 
-            const response = await Axios.post('https://zip-to-document-converter.vercel.app//zip/ExtractZip', formData, {
+            const response = await Axios.post(`${process.env.REACT_APP_BACKEND_HOST_NAME}/zip/ExtractZip`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': token

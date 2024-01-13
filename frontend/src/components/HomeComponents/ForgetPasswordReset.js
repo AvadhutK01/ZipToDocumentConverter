@@ -66,7 +66,7 @@ const ForgetPasswordReset = () => {
         };
 
         try {
-            await axios.put('https://zip-to-document-converter.vercel.app//user/resetPassword', Data);
+            await axios.put(`${process.env.REACT_APP_BACKEND_HOST_NAME}/user/resetPassword`, Data);
             setIsValid(false);
             setUserId('');
             navigate('/login');

@@ -18,7 +18,7 @@ const LoginPage = () => {
         };
 
         try {
-            const response = await axios.post('https://zip-to-document-converter.vercel.app//user/Login', loginData);
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_HOST_NAME}/user/Login`, loginData);
 
             if (response.data.message === "success") {
                 login(uname);
