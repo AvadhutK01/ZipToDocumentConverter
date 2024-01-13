@@ -43,7 +43,7 @@ const ForgetPasswordReset = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/user/resetPasswordAuth', Data);
+            const response = await axios.post('zip-to-document-converter.vercel.app/user/resetPasswordAuth', Data);
             setIsValid(true);
             setUserId(response.data.userId);
         } catch (error) {
@@ -66,7 +66,7 @@ const ForgetPasswordReset = () => {
         };
 
         try {
-            await axios.put('http://localhost:5000/user/resetPassword', Data);
+            await axios.put('https://zip-to-document-converter.vercel.app//user/resetPassword', Data);
             setIsValid(false);
             setUserId('');
             navigate('/login');

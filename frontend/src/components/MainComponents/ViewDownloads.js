@@ -8,7 +8,7 @@ const ViewDownloads = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/pdf/ViewPdfLinks', {
+        axios.get('https://zip-to-document-converter.vercel.app//pdf/ViewPdfLinks', {
             headers: {
                 "Authorization": token
             }

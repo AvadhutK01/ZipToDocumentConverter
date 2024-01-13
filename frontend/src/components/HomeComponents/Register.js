@@ -51,7 +51,7 @@ const Register = () => {
         }
 
         try {
-            const response = await Axios.post('http://localhost:5000/user/register', {
+            const response = await Axios.post('https://zip-to-document-converter.vercel.app//user/register', {
                 username,
                 password,
                 hintQuestion: selectedHintQuestion,
