@@ -7,9 +7,12 @@ const userRouter = require('./Routes/userRoute');
 require('./ConnectDb');
 const pdfRouter = require('./Routes/pdfRoute');
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    credentials: true,
+    methods: ["POST", "GET"]
+}));
 app.use(bodyParser.json());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter)
 app.use('/zip', zipRouter)

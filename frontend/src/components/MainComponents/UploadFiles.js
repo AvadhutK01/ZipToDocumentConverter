@@ -61,10 +61,10 @@ const UploadFiles = () => {
     };
 
     return (
-        <div className="container mt-3 mb-5 offset-md-4">
-            <div className="col-md-5">
+        <div className="container d-flex justify-content-center align-items-center my-2">
+            <div className="col-md-5 ">
                 <div className="card">
-                    <div className="card-body text-center">
+                    <div className="card-body text-center ">
                         <div>
                             <h2 className="card-title mb-4">Upload Your Zip File</h2>
                             <img
