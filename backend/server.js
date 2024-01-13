@@ -21,11 +21,6 @@ app.use('/pdf', pdfRouter);
 app.get('/', (req, res) => {
     res.send('Hello');
 });
-mongoose.connection.on('error', (err) => {
-    console.error('Error connecting to MongoDB:', err);
-    // Send the error response to the client
-    res.status(500).send('Error connecting to MongoDB: ' + err.message);
-});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

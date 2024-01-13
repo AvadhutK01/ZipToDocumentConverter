@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbURI = process.env.DB_URl;
+const dbURI = 'mongodb+srv://ak21:pass123@cluster0.dnejp8e.mongodb.net/z2d_db';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -14,4 +14,5 @@ mongoose.connection.on('error', (err) => {
 
 mongoose.connection.on('disconnected', () => {
     console.log('Disconnected from MongoDB');
+
 });
