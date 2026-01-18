@@ -22,14 +22,19 @@ const LoginPage = () => {
 
             if (response.data.message === "success") {
                 login(uname);
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('Z2Dtoken', response.data.token);
                 window.location.href = '/mainHome';
-            } else if (response.data === "loginfailed") {
-                toast.error("Login failed! Please check your credentials.");
             }
-
         } catch (error) {
-            toast.error("Failed to log in! Please try again later.");
+            console.log(error);
+            if (error.response.data) {
+                if (error.response.data === 'loginfailed') {
+                    toast.warning("Invalid Credentials")
+                }
+            }
+            else {
+                toast.error("Failed to log in! Please try again later.");
+            }
         }
     };
 

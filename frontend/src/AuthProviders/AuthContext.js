@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUsername('');
         localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        localStorage.removeItem('Z2Dtoken');
         window.location.href = '/'
     };
 

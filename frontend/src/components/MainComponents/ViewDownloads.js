@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ViewDownloads = () => {
     const [data, setData] = useState([]);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('Z2Dtoken');
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACKEND_HOST_NAME}/pdf/ViewPdfLinks`, {

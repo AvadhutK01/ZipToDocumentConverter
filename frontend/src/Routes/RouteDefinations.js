@@ -14,7 +14,7 @@ import ForgetPasswordReset from '../components/HomeComponents/ForgetPasswordRese
 
 
 const isAuthenticated = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('Z2Dtoken');
     return token ? true : false;
 };
 const RouteDefinations = () => {

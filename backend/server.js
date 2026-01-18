@@ -6,7 +6,6 @@ const zipRouter = require('./Routes/ZipRoute');
 const userRouter = require('./Routes/userRoute');
 require('./ConnectDb');
 const pdfRouter = require('./Routes/pdfRoute');
-const mongoose = require("mongoose");
 const app = express();
 app.use(cors({
     origin: '*',

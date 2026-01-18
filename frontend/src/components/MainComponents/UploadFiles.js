@@ -24,7 +24,7 @@ const UploadFiles = () => {
 
             const formData = new FormData();
             formData.append('file', file);
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem('Z2Dtoken');
 
             const response = await Axios.post(`${process.env.REACT_APP_BACKEND_HOST_NAME}/zip/ExtractZip`, formData, {
                 headers: {
