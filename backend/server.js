@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const zipRouter = require('./Routes/ZipRoute');
 const userRouter = require('./Routes/userRoute');
+console.log("here");
 require('./ConnectDb');
 const pdfRouter = require('./Routes/pdfRoute');
 const app = express();
