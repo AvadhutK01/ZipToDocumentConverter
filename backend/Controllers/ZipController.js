@@ -46,6 +46,8 @@ module.exports.ExtractZip = async (req, res) => {
     }
 };
 
+        console.log('Fonts:', fonts);
+
         const printer = new pdfMakePrinter(fonts);
 
         const docDefinition = {
