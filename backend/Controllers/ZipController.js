@@ -94,7 +94,7 @@ module.exports.ExtractZip = async (req, res) => {
                     secretAccessKey: process.env.IAM_USER_SECRET
                 });
                 const params = {
-                    Bucket: 'zippdfbucket',
+                    Bucket: 'zippdfbucketz2d',
                     Key: `${fileName}_files_list.pdf`,
                     Body: pdfBuffer,
                     ACL: 'public-read',
