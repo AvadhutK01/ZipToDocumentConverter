@@ -38,13 +38,13 @@ module.exports.ExtractZip = async (req, res) => {
         };
 
         const fonts = {
-            Roboto: {
-                normal: 'Roboto-Regular.ttf',
-                bold: 'Roboto-Medium.ttf',
-                italics: 'Roboto-Italic.ttf',
-                bolditalics: 'Roboto-MediumItalic.ttf'
-            }
-        };
+    Roboto: {
+        normal: path.join(process.cwd(), 'Roboto-Regular.ttf'),
+        bold: path.join(process.cwd(), 'Roboto-Medium.ttf'),
+        italics: path.join(process.cwd(), 'Roboto-Italic.ttf'),
+        bolditalics: path.join(process.cwd(), 'Roboto-MediumItalic.ttf')
+    }
+};
 
         const printer = new pdfMakePrinter(fonts);
 
