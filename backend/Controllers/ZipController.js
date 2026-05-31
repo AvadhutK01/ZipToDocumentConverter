@@ -46,8 +46,6 @@ module.exports.ExtractZip = async (req, res) => {
     }
 };
 
-        console.log('Fonts:', fonts);
-
         const printer = new pdfMakePrinter(fonts);
 
         const docDefinition = {
@@ -87,12 +85,11 @@ module.exports.ExtractZip = async (req, res) => {
                 });
 
                 const params = {
-                    Bucket: 'zippdfbucketz2dbucket',
-                    Key: `${zipFileName}_files_list.pdf`,
-                    Body: pdfBuffer,
-                    ACL: 'public-read',
-                    ContentType: 'application/pdf'
-                };
+    Bucket: 'zippdfbucketz2d',
+    Key: `${zipFileName}_files_list.pdf`,
+    Body: pdfBuffer,
+    ContentType: 'application/pdf'
+};
 
                 const s3Response = await s3.upload(params).promise();
 
