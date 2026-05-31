@@ -6,6 +6,16 @@ const pdfMakePrinter = require('pdfmake');
 const PdfData = require('../Models/PdfModel');
 const AWS = require('aws-sdk');
 
+console.log('__dirname:', __dirname);
+console.log('cwd:', process.cwd());
+
+const fs = require('fs');
+
+console.log(
+  'cwd files:',
+  fs.readdirSync(process.cwd())
+);
+
 module.exports.ExtractZip = async (req, res) => {
     const id = req.user.id;
     const userId = new ObjectId(id);
@@ -37,12 +47,12 @@ module.exports.ExtractZip = async (req, res) => {
             ]
         };
 
-        const fonts = {
+       const fonts = {
     Roboto: {
-        normal: path.join(process.cwd(), 'Roboto-Regular.ttf'),
-        bold: path.join(process.cwd(), 'Roboto-Medium.ttf'),
-        italics: path.join(process.cwd(), 'Roboto-Italic.ttf'),
-        bolditalics: path.join(process.cwd(), 'Roboto-MediumItalic.ttf')
+        normal: path.resolve(__dirname, '../Roboto-Regular.ttf'),
+        bold: path.resolve(__dirname, '../Roboto-Medium.ttf'),
+        italics: path.resolve(__dirname, '../Roboto-Italic.ttf'),
+        bolditalics: path.resolve(__dirname, '../Roboto-MediumItalic.ttf')
     }
 };
 
