@@ -6,16 +6,6 @@ const pdfMakePrinter = require('pdfmake');
 const PdfData = require('../Models/PdfModel');
 const AWS = require('aws-sdk');
 
-console.log('__dirname:', __dirname);
-console.log('cwd:', process.cwd());
-
-const fs = require('fs');
-
-console.log(
-  'cwd files:',
-  fs.readdirSync(process.cwd())
-);
-
 module.exports.ExtractZip = async (req, res) => {
     const id = req.user.id;
     const userId = new ObjectId(id);
