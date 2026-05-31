@@ -87,7 +87,7 @@ module.exports.ExtractZip = async (req, res) => {
                 });
 
                 const params = {
-                    Bucket: 'zippdfbucketz2d',
+                    Bucket: 'zippdfbucketz2dbucket',
                     Key: `${zipFileName}_files_list.pdf`,
                     Body: pdfBuffer,
                     ACL: 'public-read',
